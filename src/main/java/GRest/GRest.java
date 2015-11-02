@@ -69,18 +69,19 @@ public class GRest implements CommandLineRunner {
     //adding to the JSON format [PUT]
     public void PUT (String str) throws SQLException {
         while (str.length() > 3) {
-            int[] skay =   {(str.indexOf("key:") + 4),
-                            (str.indexOf("key: ") + 5),
-                            (str.indexOf("key :") + 5),
-                            (str.indexOf("key : ") + 6)};
+            int[] skay =   {(str.indexOf("\"key\":") + 6),
+                            (str.indexOf("\"key\": ") + 7),
+                            (str.indexOf("\"key\" :") + 7),
+                            (str.indexOf("\"key\" : ") + 8)};
             int endkey = str.indexOf(",");
-            int[] svalue = {(str.indexOf("value:") + 6),
-                            (str.indexOf("value: ") + 7),
-                            (str.indexOf("value :") + 7),
-                            (str.indexOf("value : ") + 8)};
+            int[] svalue = {(str.indexOf("\"value\":") + 8),
+                            (str.indexOf("\"value\": ") + 9),
+                            (str.indexOf("\"value\" :") + 9),
+                            (str.indexOf("\"value\" : ") + 10)};
             int endvalue = str.indexOf("}");
             int key = Integer.valueOf(str.substring(Max(skay, endvalue), endkey));
-            String value = str.substring(Max(svalue, endvalue), endvalue);
+            String valueone = str.substring(Max(svalue, endvalue), endvalue);
+            String value = valueone.substring(1, valueone.length() - 2);
             String sql = "INSERT INTO PEOPLE ('Year', 'Name') VALUES ("+ key +", '"+ value +"');";
             stmt.executeUpdate(sql);
             str = str.substring(endvalue + 1);
