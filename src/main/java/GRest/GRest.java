@@ -69,15 +69,15 @@ public class GRest implements CommandLineRunner {
     //adding to the JSON format [PUT]
     public void PUT (String str) throws SQLException {
         while (str.length() > 3) {
-            int[] skay =   {(str.indexOf("\"key\":") + 6),
-                            (str.indexOf("\"key\": ") + 7),
-                            (str.indexOf("\"key\" :") + 7),
-                            (str.indexOf("\"key\" : ") + 8)};
+            int[] skay =   {(str.indexOf("\"age\":") + 6),
+                            (str.indexOf("\"age\": ") + 7),
+                            (str.indexOf("\"age\" :") + 7),
+                            (str.indexOf("\"age\" : ") + 8)};
             int endkey = str.indexOf(",");
-            int[] svalue = {(str.indexOf("\"value\":") + 8),
-                            (str.indexOf("\"value\": ") + 9),
-                            (str.indexOf("\"value\" :") + 9),
-                            (str.indexOf("\"value\" : ") + 10)};
+            int[] svalue = {(str.indexOf("\"name\":") + 7),
+                            (str.indexOf("\"name\": ") + 8),
+                            (str.indexOf("\"name\" :") + 8),
+                            (str.indexOf("\"name\" : ") + 9)};
             int endvalue = str.indexOf("}");
             int key = Integer.valueOf(str.substring(Max(skay, endvalue), endkey));
             String valueone = str.substring(Max(svalue, endvalue), endvalue);
