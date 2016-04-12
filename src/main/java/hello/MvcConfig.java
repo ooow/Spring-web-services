@@ -27,6 +27,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
     }
 
+    @Bean
+    public ViewResolver getViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
 /*    @Bean
     public TemplateResolver templateResolver() {
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -35,15 +43,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         templateResolver.setSuffix(".jsp");
         return templateResolver;
     }*/
-
-    @Bean
-    public ViewResolver getViewResolver() {
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("templates");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
 }
 
 /*
