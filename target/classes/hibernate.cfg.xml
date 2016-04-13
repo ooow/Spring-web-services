@@ -10,10 +10,10 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="Model.User"/>
-        <mapping class="Model.Role"/>
-        <mapping class="Model.Position"/>
-        <mapping class="Model.WorkTable"/>
+        <mapping class="com.nc.Model.User"/>
+        <mapping class="com.nc.Model.Role"/>
+        <mapping class="com.nc.Model.Position"/>
+        <mapping class="com.nc.Model.WorkTable"/>
 
 
         <!--example using xml configurations
