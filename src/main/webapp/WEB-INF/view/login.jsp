@@ -1,27 +1,17 @@
 <%@ page language="java" contentType="text/html; ISO-8859-1" pageEncoding="ISO-8859-1" %>
 
-<c:url value="/login" var="loginUrl"/>
-<form action="${loginUrl}" method="post">
-    <c:if test="${param.error != null}">
-        <p>
-            Invalid username and password.
-        </p>
-    </c:if>
-    <c:if test="${param.logout != null}">
-        <p>
-            You have been logged out.
-        </p>
-    </c:if>
-    <p>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username"/>
-    </p>
-    <p>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password"/>
-    </p>
-    <input type="hidden"                        6
-           name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
-    <button type="submit" class="btn">Log in</button>
-</form>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; ISO-8859-1">
+        <title>Login Page</title>
+    </head>
+    <body>
+    <form action="login.jsp" method="post">
+        <label> User Name : <input type="text" name="username"/> </label>
+        <label> Password: <input type="password" name="password"/> </label>
+        <input type="submit" value="Sign In"/>
+    </form>
+    </body>
+</html>
