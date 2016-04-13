@@ -16,7 +16,7 @@ import java.sql.Time;
  * Created by Гога on 11.04.2016.
  */
 public class TestHibernate {
-    public static void main(String[] args) {
+    public void main(String[] args) {
         /*SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {

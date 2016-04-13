@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Model.Role" table="role">
+        <id name="id" column="id" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="title" type="string"/>
+
+        <set name="users" table="users">
+            <key>
+                <column name="role_id"/>
+            </key>
+            <one-to-many class="Model.User"/>
+        </set>
+
+        <!--one-to-one example-->
+        <!--<one-to-one name="user" class="Model.User"/>-->
+
+        <!--many-to-many example-->
+        <!--<set name="users" table="user_role_connect">
+            <key column="role_id"/>
+            <many-to-many column="user_id" class="Model.User"/>
+        </set>-->
+
+    </class>
+</hibernate-mapping>

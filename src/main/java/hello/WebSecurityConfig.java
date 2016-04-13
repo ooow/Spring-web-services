@@ -12,13 +12,15 @@ import service.MyUserDetailsService;
 /**
  * Created by Гога on 11.04.2016.
  */
-@Configuration
-@EnableWebSecurity
+/*@Configuration
+@EnableWebSecurity*/
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+/*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!22222");
         http
+
                 .authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
                 .anyRequest().authenticated()
@@ -29,12 +31,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+        *//*DirResourceSet
+                getResource*//*
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!33333");
         auth
                 .userDetailsService(new MyUserDetailsService());
-    }
-
+    }*/
 }
+
+/*
+<security:authentication-manager>
+<security:authentication-provider>
+<security:user-service>
+<security:user name="jimi" password="q" authorities="ROLE_USER, ROLE_ADMIN" />
+<security:user name="bob" password="bobspassword" authorities="ROLE_USER" />
+</security:user-service>
+</security:authentication-provider>
+</security:authentication-manager>*/
