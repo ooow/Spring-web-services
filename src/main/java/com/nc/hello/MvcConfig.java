@@ -27,6 +27,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+        configurer.toString();
     }
 
     @Bean
@@ -38,3 +39,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 }
+
+/*
+    @Bean
+    public DefaultServletHttpRequestHandler defaultServletHttpRequestHandler() {
+        return new DefaultServletHttpRequestHandler();
+    }*/
