@@ -1,4 +1,4 @@
-package com.nc.Model;
+package com.nc.model;
 
 import javax.persistence.*;
 
@@ -20,6 +20,10 @@ public class Role extends Model {
         super(id);
     }
 
+    public Role(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -29,7 +33,7 @@ public class Role extends Model {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "    title: " + title + "\n";
     }
 }

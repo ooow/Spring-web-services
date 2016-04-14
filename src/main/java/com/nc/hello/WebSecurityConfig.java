@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .anyRequest().authenticated()
+ /*               .antMatchers("/home").hasRole("admin")*/
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -27,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+        http    .csrf().disable();
     }
 
     @Configuration

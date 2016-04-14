@@ -262,17 +262,16 @@
                 -webkit-transform: translateY(-700px) rotate(600deg);
                 transform: translateY(-700px) rotate(600deg);
             }
-        }</style>
+        }
+    </style>
 </head>
 
 <body>
 
-</form>
 <div class="wrapper">
     <div class="container">
         <h1>Welcome to Work Enjoy</h1>
-        <c:url value="/login" var="loginUrl"/>
-        <form class="form" action="${loginUrl}" method="post">
+        <form class="form" action="/login" method="post">
             <c:if test="${param.error != null}">
                 <p>Invalid username and password</p>
             </c:if>
@@ -281,8 +280,7 @@
             </c:if>
             <input type="text" id="username" name="username" placeholder="Username">
             <input type="password" id="password" name="password" placeholder="Password">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" value="Sign In">Login</button>
+            <button type="submit" value="singin">Login</button>
         </form>
         <p class="author">GT</p>
     </div>

@@ -1,8 +1,10 @@
-package com.nc.Model;
+package com.nc.model;
+
+import org.joda.time.Duration;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+
+import org.joda.time.DateTime;
 
 /**
  * Created by Гога on 11.04.2016.
@@ -14,11 +16,9 @@ public class WorkTable extends Model {
     @JoinColumn(name = "user_id")
     private User user;
     @Column
-    private Date startData;
+    private DateTime startTime = null;
     @Column
-    private Time startTime;
-    @Column
-    private Time endTime;
+    private DateTime endTime = null;
 
     public WorkTable() {
         super();
@@ -26,12 +26,6 @@ public class WorkTable extends Model {
 
     public WorkTable(Long id) {
         super(id);
-    }
-
-    public WorkTable(User user, Date date, Time time) {
-        this.user = user;
-        this.startData = date;
-        this.startTime = time;
     }
 
     public User getUser() {
@@ -42,27 +36,27 @@ public class WorkTable extends Model {
         this.user = user;
     }
 
-    public Date getStartData() {
-        return startData;
-    }
-
-    public void setStartData(Date startData) {
-        this.startData = startData;
-    }
-
-    public Time getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String getWorkTime() {
+        Duration duration = new Duration(endTime, startTime);
+        System.out.println(duration.getStandardDays());
+        System.out.println(duration.getStandardHours());
+        System.out.println(duration.getStandardMinutes());
+        return "" + duration.getStandardHours() + duration.getStandardMinutes();
     }
 }

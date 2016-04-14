@@ -1,9 +1,8 @@
 package com.nc.service;
 
-import com.nc.Model.User;
+import com.nc.model.User;
 import com.nc.DAO.UserDao;
-import com.nc.Model.Role;
-import com.nc.Model.User;
+import com.nc.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
