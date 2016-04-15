@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login Screen</title>
+    <title>Work Enjoy</title>
     <style>
         body {
             font-family: 'Source Sans Pro', sans-serif;

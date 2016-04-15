@@ -1,4 +1,4 @@
-package com.nc.hello;
+package com.nc.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

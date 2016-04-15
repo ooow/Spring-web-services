@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; ISO-8859-1">
-    <title>Home Page</title>
+    <title>Work Enjoy</title>
     <style>
 
         .logout {
@@ -15,10 +15,42 @@
             right: 0;
         }
 
+        .title {
+            font-family: Calibri, sans-serif;
+            text-align: center;
+            color: #50a3a2;
+            font-size: 70px;
+        }
+
         .goAdmin {
             position: absolute;
             top: 8%;
             right: 0;
+        }
+
+        .report {
+            position: absolute;
+            top: 30%;
+            right: 25%;
+        }
+
+        .sbutton {
+            position: absolute;
+            top: 30%;
+            left: 25%;
+        }
+
+        .reportTable {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            color: white;
+            font-weight: 300;
+            background: #50a3a2;
+            background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+            background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+            position: absolute;
+            top: 40%;
+            width: 100%;
         }
 
         .profile {
@@ -31,12 +63,7 @@
             background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
             background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
             position: absolute;
-        }
-
-        .status {
-            font-family: 'Source Sans Pro', sans-serif;
-            text-align: center;
-            color: #50a3a2;
+            top: 0;
         }
 
         form input {
@@ -72,6 +99,7 @@
     </style>
 </head>
 <body>
+<h1 class="title">Work Enjoy</h1>
 <div class="profile">
     <p>Profile</p>
     <p>Login: ${username}</p>
@@ -88,7 +116,7 @@
     </form>
 </div>
 
-<div class="startbutton">
+<div class="sbutton">
     <form action="/workstart" method="post">
         <c:if test="${status =='stop'}">
             <input type="submit" value="Start working">
@@ -96,7 +124,7 @@
     </form>
 </div>
 
-<div class="stopbutton">
+<div class="sbutton">
     <form action="/workstop" method="post">
         <c:if test="${status=='start'}">
             <input type="submit" value="Stop working">
@@ -110,6 +138,44 @@
             <input type="submit" value="Administrator control">
         </c:if>
     </form>
+</div>
+
+<div class="report">
+    <form action="/report" method="post">
+        <input type="submit" value="Report">
+    </form>
+</div>
+
+<div class="reportTable">
+    <c:if test="${worktables != null}">
+
+        <table class="reportTable" border="1px" style="border-color: black;">
+            <tr>
+                <pre><th>Year</th></pre>
+                <pre><th> Month</th></pre>
+                <pre><th> Day</th></pre>
+                <pre><th> Start In</th></pre>
+                <pre><th> End In</th></pre>
+                <pre><th> Work</th></pre>
+            </tr>
+            <c:forEach var="worktabel" items="${worktables}">
+                <tr>
+                    <td>${worktabel.startTime.getYear()}</td>
+                    <td>${worktabel.startTime.getMonthOfYear()}</td>
+                    <td>${worktabel.startTime.getDayOfMonth()}</td>
+                    <td> ${worktabel.startTime.getHourOfDay()} :
+                            ${worktabel.startTime.getMinuteOfHour()} </td>
+                    <td> ${worktabel.endTime.getHourOfDay()} :
+                            ${worktabel.endTime.getMinuteOfHour()} </td>
+                    <td>${worktabel.workTime.getHourOfDay()} :
+                            ${worktabel.workTime.getMinuteOfHour()} :
+                            ${worktabel.workTime.getSecondOfMinute()}
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+
+    </c:if>
 </div>
 
 </body>

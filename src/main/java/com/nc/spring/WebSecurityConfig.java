@@ -1,4 +1,4 @@
-package com.nc.hello;
+package com.nc.spring;
 
 import com.nc.service.MyUserDetailsService;
 import org.springframework.context.annotation.Configuration;

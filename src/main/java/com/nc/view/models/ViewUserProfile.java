@@ -18,8 +18,7 @@ public class ViewUserProfile {
         mv.addObject("position", user.getPost().getTitle());
         mv.addObject("salaryt", user.getPost().getSalaryType());
         mv.addObject("salary", user.getPost().getSalary());
-        if (!status.equals(""))
-            mv.addObject("status", status);
+        mv.addObject("status", status);
         return mv;
     }
 }

@@ -1,6 +1,5 @@
 package com.nc.model;
 
-import org.joda.time.Duration;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -59,11 +58,7 @@ public class WorkTable extends Model {
         this.workTime = workTime;
     }
 
-    public String getWorkTime() {
-        Duration duration = new Duration(endTime, startTime);
-        System.out.println(duration.getStandardDays());
-        System.out.println(duration.getStandardHours());
-        System.out.println(duration.getStandardMinutes());
-        return "" + duration.getStandardHours() + duration.getStandardMinutes();
+    public DateTime getWorkTime() {
+        return workTime;
     }
 }

@@ -1,4 +1,4 @@
-package com.nc.hello;
+package com.nc.spring;
 
 import com.nc.DAO.PositionDao;
 import com.nc.DAO.RoleDao;
@@ -101,7 +101,7 @@ public class RequestController {
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ModelAndView getReport() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return new ViewUserReport().getReport(username);
+        return new ViewUserReport().getReport(username, status);
     }
 
     @RequestMapping("/403")

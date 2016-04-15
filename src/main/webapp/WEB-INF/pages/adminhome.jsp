@@ -14,7 +14,14 @@
             right: 0;
         }
 
-        .title {
+        .title1 {
+            font-family: Calibri, sans-serif;
+            text-align: center;
+            color: #50a3a2;
+            font-size: 60px;
+        }
+
+        . title {
             font-family: Calibri, sans-serif;
             text-align: center;
             color: #50a3a2;
@@ -89,7 +96,7 @@
     </style>
 </head>
 <body>
-<h1 class="title">ADMINISTRATOR CONTROL</h1>
+<h1 class="title1">Administrator control</h1>
 <c:url var="logoutUrl" value="/logout"/>
 <div class="logout">
     <form action="${logoutUrl}" method="post">

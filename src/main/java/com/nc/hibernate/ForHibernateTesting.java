@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 /**
  * Created by Гога on 11.04.2016.
  */
-public class TestHibernate {
+public class ForHibernateTesting {
     public static void main(String[] args) {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
@@ -47,8 +47,6 @@ public class TestHibernate {
             session.save(ps1);
             session.save(us1);
             session.save(wt1);
-
-            session.createSQLQuery("SELECT * FROM users");
 
             session.getTransaction().commit();
         } catch (Exception e) {
