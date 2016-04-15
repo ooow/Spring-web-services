@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d2eaff1-e839-490b-b0e3-fd806cdd4313" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/nc/hello/Application.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/spring/Application.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/nc/hello/MvcConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/spring/MvcConfig.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/nc/hello/RequestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/spring/RequestController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/nc/hello/WebSecurityConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/spring/WebSecurityConfig.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/nc/hibernate/TestHibernate.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/hibernate/ForHibernateTesting.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nc/DAO/WorkTableDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/DAO/WorkTableDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nc/Model/WorkTable.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/Model/WorkTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nc/view/models/ViewUserProfile.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/view/models/ViewUserProfile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nc/view/models/ViewUserReport.java" afterPath="$PROJECT_DIR$/src/main/java/com/nc/view/models/ViewUserReport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/adminhome.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/adminhome.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/login.jsp" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/fortesting/css/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/fortesting/index.html" afterPath="" />
     </list>
     <ignored path="workOut.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -242,32 +231,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workOut" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workOut" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1043,12 +1006,12 @@
       <workItem from="1460567386234" duration="21335000" />
       <workItem from="1460631618712" duration="3182000" />
       <workItem from="1460639556206" duration="42733000" />
-      <workItem from="1460711681951" duration="6672000" />
+      <workItem from="1460711681951" duration="6799000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197340000" />
+    <option name="totallyTimeSpent" value="197467000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
