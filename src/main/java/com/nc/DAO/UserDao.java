@@ -1,5 +1,6 @@
 package com.nc.DAO;
 
+import com.nc.exception.UsernameIsAlreadyTakenException;
 import com.nc.model.User;
 import com.nc.hibernate.HibernateConfig;
 import org.hibernate.Criteria;
@@ -31,13 +32,13 @@ public class UserDao {
         return user;
     }
 
-    public void registUser(User user) {
+    public void registUser(User user) throws UsernameIsAlreadyTakenException {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             User us1 = findByUserName(user.getLogin());
             if (us1 != null)
-                return; // такой юзер уже существует
+                throw new UsernameIsAlreadyTakenException("This username: " + user.getLogin() + " is already taken");
             session.beginTransaction();
             session.save(user);
             session.beginTransaction().commit();

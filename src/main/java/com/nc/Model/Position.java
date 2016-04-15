@@ -1,5 +1,7 @@
 package com.nc.model;
 
+import com.nc.exception.SalaryTypeException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,10 +29,12 @@ public class Position extends Model {
         super(id);
     }
 
-    public Position(String title, String salaryType, BigDecimal salary) {
-        this.title = title;
-        this.salaryType = salaryType;
-        this.salary = salary;
+    public Position(String title, String salaryType, BigDecimal salary) throws SalaryTypeException {
+        if ("dinamic".equals(salaryType) || "static".equals(salaryType)) {
+            this.salaryType = salaryType;
+            this.title = title;
+            this.salary = salary;
+        } else throw new SalaryTypeException("Please enter salaru type \"dinamic\" or \"static\"");
     }
 
     public String getTitle() {

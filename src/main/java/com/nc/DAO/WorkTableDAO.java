@@ -43,7 +43,6 @@ public class WorkTableDAO {
                     (int) (duration.getStandardHours() % 24),
                     (int) (duration.getStandardMinutes() % 60),
                     (int) (duration.getStandardSeconds() % 60));
-            System.out.println(dt);
             workTable1.setWorkTime(dt);
             session.beginTransaction();
             session.update(workTable1);

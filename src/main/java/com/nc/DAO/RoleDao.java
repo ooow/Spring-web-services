@@ -1,5 +1,7 @@
 package com.nc.DAO;
 
+import com.nc.exception.AlreadyCreatedException;
+import com.nc.exception.RoleDoesNotExistException;
 import com.nc.model.Role;
 import com.nc.hibernate.HibernateConfig;
 import org.hibernate.Criteria;
@@ -15,13 +17,18 @@ import java.util.List;
 public class RoleDao {
     private Role role = null;
 
-    public void createNewRole(Role role) {
+    public void createNewRole(Role role) throws AlreadyCreatedException {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
-            session.beginTransaction();
-            session.save(role);
-            session.beginTransaction().commit();
+            try {
+                new RoleDao().getRoleByTitle(role.getTitle());
+                throw new AlreadyCreatedException("The role: " + role.getTitle() + " has already been created");
+            } catch (RoleDoesNotExistException e) {
+                session.beginTransaction();
+                session.save(role);
+                session.beginTransaction().commit();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -29,14 +36,16 @@ public class RoleDao {
         }
     }
 
-    public Role getRoleByTitle(String title) {
+    public Role getRoleByTitle(String title) throws RoleDoesNotExistException {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             Criteria criteria = session.createCriteria(Role.class);
             criteria.add(Restrictions.eq("title", title));
             List<Role> res = criteria.list();
-            return res.size() != 0 ? res.get(0) : null;
+            if (res.size() != 0) return res.get(0);
+            else
+                throw new RoleDoesNotExistException("This role: " + title + " does not exist");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

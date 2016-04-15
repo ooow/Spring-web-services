@@ -34,21 +34,36 @@
         }
 
         .addUser {
-            font-family: 'Source Sans Pro', sans-serif;
-            text-align: center;
-            color: white;
-            font-weight: 300;
-            width: 300px;
-            background: white;
-            border: 5px #50a3a2;
-            border-style: inset;
-            border-radius: 10px;
             position: absolute;
             top: 20%;
-            left: 25%;
+            left: 38.5%;
         }
 
         .addPosition {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+        }
+
+        .addRole {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+        }
+
+        .deleteRole {
+            position: absolute;
+            top: 65%;
+            left: 10%;
+        }
+
+        .deletePosition {
+            position: absolute;
+            top: 65%;
+            right: 10%;
+        }
+
+        .add {
             font-family: 'Source Sans Pro', sans-serif;
             text-align: center;
             color: white;
@@ -58,9 +73,6 @@
             border: 5px #50a3a2;
             border-style: inset;
             border-radius: 10px;
-            position: absolute;
-            top: 20%;
-            right: 25%;
         }
 
         form input {
@@ -104,29 +116,67 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
 </div>
+
 <div class="addUser">
-    <p class="title">Sing up new User</p>
-    <form action="/singup" method="post">
-        <p><input type="text" id="username" name="username" placeholder="Username"></p>
-        <p><input type="password" id="password" name="password" placeholder="Password"></p>
-        <p><input type="text" id="name" name="name" placeholder="Name"></p>
-        <p><input type="text" id="surname" name="surname" placeholder="Surname"></p>
-        <p><input type="text" id="role" name="role" placeholder="Role"></p>
-        <p><input type="text" id="position" name="position" placeholder="Position"></p>
-        <p><input type="submit" value="Sing up"/></p>
-    </form>
-    <p class="title">${singUpInfo}</p>
+    <div class="add">
+        <p class="title">Sing up new User</p>
+        <form action="/singup" method="post">
+            <p><input type="text" id="username" name="username" placeholder="Username"></p>
+            <p><input type="password" id="password" name="password" placeholder="Password"></p>
+            <p><input type="text" id="name" name="name" placeholder="Name"></p>
+            <p><input type="text" id="surname" name="surname" placeholder="Surname"></p>
+            <p><input type="text" id="role" name="role" placeholder="Role"></p>
+            <p><input type="text" id="position" name="position" placeholder="Position"></p>
+            <p><input type="submit" value="Sing up"/></p>
+        </form>
+        <p class="title">${singUpInfo}</p>
+    </div>
 </div>
 
 <div class="addPosition">
-    <p class="title">Create new Position</p>
-    <form action="/createposition" method="post">
-        <p><input type="text" id="title" name="title" placeholder="Position"></p>
-        <p><input type="text" id="salaryt" name="salaryt" placeholder="Salary type"></p>
-        <p><input type="text" id="salary" name="salary" placeholder="Salary"></p>
-        <p><input type="submit" value="createposition"/></p>
-    </form>
-    <p class="title">${createPositionInfo}</p>
+    <div class="add">
+        <p class="title">Create new Position</p>
+        <form action="/createposition" method="post">
+            <p><input type="text" id="title" name="title" placeholder="Position"></p>
+            <p><input type="text" id="salaryt" name="salaryt" placeholder="Salary type"></p>
+            <p><input type="text" id="salary" name="salary" placeholder="Salary"></p>
+            <p><input type="submit" value="Create Position"/></p>
+        </form>
+        <p class="title">${createPositionInfo}</p>
+    </div>
+</div>
+
+<div class="addRole">
+    <div class="add">
+        <p class="title">Create new Role</p>
+        <form action="/createrole" method="post">
+            <p><input type="text" id="title" name="title" placeholder="Role"></p>
+            <p><input type="submit" value="Create Role"/></p>
+        </form>
+        <p class="title">${createRoleInfo}</p>
+    </div>
+</div>
+
+<div class="deleteRole">
+    <div class="add">
+        <p class="title">Delete Role</p>
+        <form action="/deleterole" method="post">
+            <p><input type="text" id="title" name="title" placeholder="Role"></p>
+            <p><input type="submit" value="Delete Role"/></p>
+        </form>
+        <p class="title">${deleteRoleInfo}</p>
+    </div>
+</div>
+
+<div class="deletePosition">
+    <div class="add">
+        <p class="title">Delete Position</p>
+        <form action="/deleterole" method="post">
+            <p><input type="text" id="title" name="title" placeholder="Position"></p>
+            <p><input type="submit" value="Delete Position"/></p>
+        </form>
+        <p class="title">${deletePositionInfo}</p>
+    </div>
 </div>
 
 <div class="goHome">

@@ -1,5 +1,7 @@
 package com.nc.DAO;
 
+import com.nc.exception.AlreadyCreatedException;
+import com.nc.exception.PositionDoesNotExistException;
 import com.nc.model.Position;
 import com.nc.hibernate.HibernateConfig;
 import org.hibernate.Criteria;
@@ -15,13 +17,18 @@ import java.util.List;
 public class PositionDao {
     private Position position = null;
 
-    public void createNewPosition(Position position) {
+    public void createNewPosition(Position position) throws AlreadyCreatedException {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
-            session.beginTransaction();
-            session.save(position);
-            session.beginTransaction().commit();
+            try {
+                new PositionDao().getPositionByTitle(position.getTitle());
+                throw new AlreadyCreatedException("The position: " + position.getTitle() + " has already been created");
+            } catch (PositionDoesNotExistException e) {
+                session.beginTransaction();
+                session.save(position);
+                session.beginTransaction().commit();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -29,14 +36,16 @@ public class PositionDao {
         }
     }
 
-    public Position getPositionByTitle(String title) {
+    public Position getPositionByTitle(String title) throws PositionDoesNotExistException {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             Criteria criteria = session.createCriteria(Position.class);
             criteria.add(Restrictions.eq("title", title));
             List<Position> res = criteria.list();
-            return res.size() != 0 ? res.get(0) : null;
+            if (res.size() != 0) return res.get(0);
+            else
+                throw new PositionDoesNotExistException("This position: " + title + " does not exist");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

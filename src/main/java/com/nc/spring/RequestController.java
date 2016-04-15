@@ -4,6 +4,7 @@ import com.nc.DAO.PositionDao;
 import com.nc.DAO.RoleDao;
 import com.nc.DAO.UserDao;
 import com.nc.DAO.WorkTableDAO;
+import com.nc.exception.*;
 import com.nc.model.Position;
 import com.nc.model.Role;
 import com.nc.model.User;
@@ -30,31 +31,52 @@ public class RequestController {
 
     @RequestMapping(value = "/singup", method = RequestMethod.POST)
     public ModelAndView singup(HttpServletRequest request) {
-        User user = new User(request.getParameter("username"),
-                request.getParameter("password"),
-                request.getParameter("name"),
-                request.getParameter("surname"),
-                new RoleDao().getRoleByTitle("ROLE_" + request.getParameter("role").toUpperCase()),
-                new PositionDao().getPositionByTitle(request.getParameter("position").toLowerCase()));
-        new UserDao().registUser(user);
-        return new ModelAndView("adminhome", "singUpInfo", "User Registered");
+        String requestStatus = "User Registered";
+        try {
+            String newRole = request.getParameter("role").toUpperCase();
+            Role role = new Role();
+            if ("ADMIN".equals(newRole))
+                role = new RoleDao().getRoleByTitle("ROLE_" + newRole);
+            else
+                role = new RoleDao().getRoleByTitle(newRole.toLowerCase());
+            Position position = new PositionDao().getPositionByTitle(request.getParameter("position").toLowerCase());
+            User user = new User(request.getParameter("username"),
+                    request.getParameter("password"),
+                    request.getParameter("name"),
+                    request.getParameter("surname"),
+                    role, position);
+            new UserDao().registUser(user);
+        } catch (UsernameIsAlreadyTakenException | RoleDoesNotExistException | PositionDoesNotExistException e) {
+            requestStatus = e.getMessage();
+        }
+        return new ModelAndView("adminhome", "singUpInfo", requestStatus);
     }
 
     @RequestMapping(value = "/createrole", method = RequestMethod.POST)
     public ModelAndView createNewRole(HttpServletRequest request) {
+        String requestStatus = "New Role Created";
         Role role = new Role(request.getParameter("role"));
-        new RoleDao().createNewRole(role);
-        System.out.println(role.toString());
-        return new ModelAndView("adminhome", "createRoleInfo", "New Role Created");
+        try {
+            new RoleDao().createNewRole(role);
+        } catch (AlreadyCreatedException e) {
+            requestStatus = e.getMessage();
+        }
+        return new ModelAndView("adminhome", "createRoleInfo", requestStatus);
     }
 
     @RequestMapping(value = "/createposition", method = RequestMethod.POST)
     public ModelAndView createNewPosition(HttpServletRequest request) {
-        Position position = new Position(request.getParameter("title"), request.getParameter("salaryt"),
-                new BigDecimal(request.getParameter("salary")));
-        new PositionDao().createNewPosition(position);
-        System.out.println(position.toString());
-        return new ModelAndView("adminhome", "createPositionInfo", "New Position Created");
+        String requestStatus = "New Position Created";
+        try {
+            Position position = new Position(request.getParameter("title"), request.getParameter("salaryt"),
+                    new BigDecimal(request.getParameter("salary")));
+            new PositionDao().createNewPosition(position);
+        } catch (AlreadyCreatedException | SalaryTypeException e) {
+            requestStatus = e.getMessage();
+        } catch (NumberFormatException e) {
+            requestStatus = "Enter a number in the [salary] field";
+        }
+        return new ModelAndView("adminhome", "createPositionInfo", requestStatus);
     }
 
     @RequestMapping(value = "/")
@@ -79,10 +101,8 @@ public class RequestController {
         DateTime current = DateTime.now();
         WorkTable wt = new WorkTable();
         User user = new UserDao().findByUserName(username);
-        System.out.println(user.getStatus());
         user.setStatus("start");
         new UserDao().updateUser(user);
-        System.out.println(user.getStatus());
         wt.setUser(user);
         wt.setStartTime(current);
         new WorkTableDAO().createNewWT(wt);
