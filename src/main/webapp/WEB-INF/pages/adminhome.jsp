@@ -51,7 +51,7 @@
             left: 10%;
         }
 
-        .deleteRole {
+/*        .deleteRole {
             position: absolute;
             top: 65%;
             left: 10%;
@@ -61,7 +61,7 @@
             position: absolute;
             top: 65%;
             right: 10%;
-        }
+        }*/
 
         .add {
             font-family: 'Source Sans Pro', sans-serif;
@@ -157,7 +157,7 @@
     </div>
 </div>
 
-<div class="deleteRole">
+<%--<div class="deleteRole">
     <div class="add">
         <p class="title">Delete Role</p>
         <form action="/deleterole" method="post">
@@ -177,7 +177,7 @@
         </form>
         <p class="title">${deletePositionInfo}</p>
     </div>
-</div>
+</div>--%>
 
 <div class="goHome">
     <form action="/home" method="post">

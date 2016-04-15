@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -33,18 +35,25 @@ public class RequestController {
     public ModelAndView singup(HttpServletRequest request) {
         String requestStatus = "User Registered";
         try {
-            String newRole = request.getParameter("role").toUpperCase();
+            String[] ifBlank = {request.getParameter("username").toUpperCase(),
+                    request.getParameter("password").toUpperCase(),
+                    request.getParameter("name").toUpperCase(),
+                    request.getParameter("surname").toUpperCase(),
+                    request.getParameter("role").toUpperCase(),
+                    request.getParameter("position").toUpperCase()};
+            for (int i = 0; i < ifBlank.length; i++) {
+                if (ifBlank[i] == null) {
+                    requestStatus = "Fill blank fields";
+                    return new ModelAndView("adminhome", "singUpInfo", requestStatus);
+                }
+            }
             Role role = new Role();
-            if ("ADMIN".equals(newRole))
-                role = new RoleDao().getRoleByTitle("ROLE_" + newRole);
+            if ("ADMIN".equals(ifBlank[4]))
+                role = new RoleDao().getRoleByTitle("ROLE_" + ifBlank[4]);
             else
-                role = new RoleDao().getRoleByTitle(newRole.toLowerCase());
-            Position position = new PositionDao().getPositionByTitle(request.getParameter("position").toLowerCase());
-            User user = new User(request.getParameter("username"),
-                    request.getParameter("password"),
-                    request.getParameter("name"),
-                    request.getParameter("surname"),
-                    role, position);
+                role = new RoleDao().getRoleByTitle(ifBlank[4].toLowerCase());
+            Position position = new PositionDao().getPositionByTitle(ifBlank[5].toLowerCase());
+            User user = new User(ifBlank[0], ifBlank[1], ifBlank[2], ifBlank[3], role, position);
             new UserDao().registUser(user);
         } catch (UsernameIsAlreadyTakenException | RoleDoesNotExistException | PositionDoesNotExistException e) {
             requestStatus = e.getMessage();
@@ -55,11 +64,16 @@ public class RequestController {
     @RequestMapping(value = "/createrole", method = RequestMethod.POST)
     public ModelAndView createNewRole(HttpServletRequest request) {
         String requestStatus = "New Role Created";
-        Role role = new Role(request.getParameter("role"));
-        try {
-            new RoleDao().createNewRole(role);
-        } catch (AlreadyCreatedException e) {
-            requestStatus = e.getMessage();
+        String newRole = request.getParameter("role");
+        if (newRole == null)
+            requestStatus = "Fill blank fields";
+        else {
+            Role role = new Role(newRole);
+            try {
+                new RoleDao().createNewRole(role);
+            } catch (AlreadyCreatedException e) {
+                requestStatus = e.getMessage();
+            }
         }
         return new ModelAndView("adminhome", "createRoleInfo", requestStatus);
     }
@@ -67,14 +81,19 @@ public class RequestController {
     @RequestMapping(value = "/createposition", method = RequestMethod.POST)
     public ModelAndView createNewPosition(HttpServletRequest request) {
         String requestStatus = "New Position Created";
-        try {
-            Position position = new Position(request.getParameter("title"), request.getParameter("salaryt"),
-                    new BigDecimal(request.getParameter("salary")));
-            new PositionDao().createNewPosition(position);
-        } catch (AlreadyCreatedException | SalaryTypeException e) {
-            requestStatus = e.getMessage();
-        } catch (NumberFormatException e) {
-            requestStatus = "Enter a number in the [salary] field";
+        String newPosition = request.getParameter("position");
+        if (newPosition == null)
+            requestStatus = "Fill blank fields";
+        else {
+            try {
+                Position position = new Position(request.getParameter("title"), request.getParameter("salaryt"),
+                        new BigDecimal(request.getParameter("salary")));
+                new PositionDao().createNewPosition(position);
+            } catch (AlreadyCreatedException | SalaryTypeException e) {
+                requestStatus = e.getMessage();
+            } catch (NumberFormatException e) {
+                requestStatus = "Enter a number in the [salary] field";
+            }
         }
         return new ModelAndView("adminhome", "createPositionInfo", requestStatus);
     }
