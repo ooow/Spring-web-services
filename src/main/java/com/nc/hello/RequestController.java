@@ -9,6 +9,7 @@ import com.nc.model.Role;
 import com.nc.model.User;
 import com.nc.model.WorkTable;
 import com.nc.view.models.ViewUserProfile;
+import com.nc.view.models.ViewUserReport;
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,22 +27,24 @@ import java.math.BigDecimal;
  */
 @Controller
 public class RequestController {
+    public String status = "stop";
+
     @RequestMapping(value = "/singup", method = RequestMethod.POST)
     public ModelAndView singup(HttpServletRequest request) {
         User user = new User(request.getParameter("username"),
                 request.getParameter("password"),
                 request.getParameter("name"),
                 request.getParameter("surname"),
-                new RoleDao().getRoleByTitle(request.getParameter("role")),
-                new PositionDao().getPositionByTitle(request.getParameter("position")));
-        System.out.println(user.toString());
+                new RoleDao().getRoleByTitle("ROLE_" + request.getParameter("role").toUpperCase()),
+                new PositionDao().getPositionByTitle(request.getParameter("position").toLowerCase()));
+        new UserDao().registUser(user);
         return new ModelAndView("adminhome", "singUpInfo", "User Registered");
     }
 
     @RequestMapping(value = "/createrole", method = RequestMethod.POST)
     public ModelAndView createNewRole(HttpServletRequest request) {
         Role role = new Role(request.getParameter("role"));
-        /*new RoleDao().createNewRole(role);*/
+        new RoleDao().createNewRole(role);
         System.out.println(role.toString());
         return new ModelAndView("adminhome", "createRoleInfo", "New Role Created");
     }
@@ -50,7 +53,7 @@ public class RequestController {
     public ModelAndView createNewPosition(HttpServletRequest request) {
         Position position = new Position(request.getParameter("title"), request.getParameter("salaryt"),
                 new BigDecimal(request.getParameter("salary")));
-        /*new PositionDao().createNewPosition(position);*/
+        new PositionDao().createNewPosition(position);
         System.out.println(position.toString());
         return new ModelAndView("adminhome", "createPositionInfo", "New Position Created");
     }
@@ -59,25 +62,27 @@ public class RequestController {
     public ModelAndView userSingIn() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        return new ViewUserProfile().getProfileInfo(username);
+        return new ViewUserProfile().getProfileInfo(username, status);
     }
 
     @RequestMapping(value = "/home")
     public ModelAndView userSingInH() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return new ViewUserProfile().getProfileInfo(username);
+        return new ViewUserProfile().getProfileInfo(username, status);
     }
 
     @RequestMapping(value = "/workstart", method = RequestMethod.POST)
     public ModelAndView workStart() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         DateTime current = DateTime.now();
         System.out.println("Время_-- " + current);
         WorkTable wt = new WorkTable();
         wt.setUser(new UserDao().findByUserName(username));
         wt.setStartTime(current);
         new WorkTableDAO().createNewWT(wt);
-        return new ViewUserProfile().getProfileInfo(username);
+        status = "start";
+        return new ViewUserProfile().getProfileInfo(username, status);
     }
 
     @RequestMapping(value = "/workstop", method = RequestMethod.POST)
@@ -85,8 +90,22 @@ public class RequestController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         DateTime current = DateTime.now();
         System.out.println("Время_-- " + current);
-        WorkTable wt = new WorkTableDAO().getWTbyUserName(username);
-        new WorkTableDAO().updateEndTime(wt, current);
-        return new ViewUserProfile().getProfileInfo(username);
+        User user = new UserDao().findByUserName(username);
+        WorkTable wt = new WorkTableDAO().getWTbyUser(user);
+        wt.setEndTime(current);
+        new WorkTableDAO().updateEndTime(wt);
+        status = "stop";
+        return new ViewUserProfile().getProfileInfo(username, status);
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    public ModelAndView getReport() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return new ViewUserReport().getReport(username);
+    }
+
+    @RequestMapping("/403")
+    public String accessDenied() {
+        return "errors/403";
     }
 }

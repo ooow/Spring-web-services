@@ -14,6 +14,13 @@
             top: 0;
             right: 0;
         }
+
+        .goAdmin {
+            position: absolute;
+            top: 8%;
+            right: 0;
+        }
+
         .profile {
             font-family: 'Source Sans Pro', sans-serif;
             text-align: center;
@@ -24,6 +31,12 @@
             background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
             background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
             position: absolute;
+        }
+
+        .status {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            color: #50a3a2;
         }
 
         form input {
@@ -77,13 +90,25 @@
 
 <div class="startbutton">
     <form action="/workstart" method="post">
-        <input type="submit" value="Start working">
+        <c:if test="${status =='stop'}">
+            <input type="submit" value="Start working">
+        </c:if>
     </form>
 </div>
 
 <div class="stopbutton">
     <form action="/workstop" method="post">
-        <input type="submit" value="Stop working">
+        <c:if test="${status=='start'}">
+            <input type="submit" value="Stop working">
+        </c:if>
+    </form>
+</div>
+
+<div class="goAdmin">
+    <form action="/adminhome" method="post">
+        <c:if test="${role=='ROLE_ADMIN'}">
+            <input type="submit" value="Administrator control">
+        </c:if>
     </form>
 </div>
 

@@ -19,8 +19,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/adminhome").hasRole("ADMIN")
                 .anyRequest().authenticated()
- /*               .antMatchers("/home").hasRole("admin")*/
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -28,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-        http    .csrf().disable();
+        http.csrf().disable();
     }
 
     @Configuration

@@ -10,25 +10,86 @@
     <style>
         .logout {
             position: absolute;
-            top: 1em;
+            top: 0;
             right: 0;
-            width: 10em;
+        }
+
+        .title {
+            font-family: Calibri, sans-serif;
+            text-align: center;
+            color: #50a3a2;
+        }
+
+        .goHome {
+            position: absolute;
+            top: 5%;
+            right: 0;
         }
 
         .addUser {
+            font-family: 'Source Sans Pro', sans-serif;
             text-align: center;
-        }
-
-        .addRole {
-            text-align: center;
+            color: white;
+            font-weight: 300;
+            width: 300px;
+            background: white;
+            border: 5px #50a3a2;
+            border-style: inset;
+            border-radius: 10px;
+            position: absolute;
+            top: 20%;
+            left: 25%;
         }
 
         .addPosition {
+            font-family: 'Source Sans Pro', sans-serif;
             text-align: center;
+            color: white;
+            font-weight: 300;
+            width: 300px;
+            background: white;
+            border: 5px #50a3a2;
+            border-style: inset;
+            border-radius: 10px;
+            position: absolute;
+            top: 20%;
+            right: 25%;
+        }
+
+        form input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: 0;
+            border: #53e3a6;
+            background-color: #53e3a6;
+            width: 250px;
+            border-radius: 3px;
+            padding: 10px 15px;
+            margin: 0 auto 10px auto;
+            display: block;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            -webkit-transition-duration: 0.25s;
+            transition-duration: 0.25s;
+            font-weight: 300;
+        }
+
+        form input:hover {
+            color: #53e3a6;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        form input:focus {
+            background-color: black;
+            width: 300px;
+            color: #53e3a6;
         }
     </style>
 </head>
 <body>
+<h1 class="title">ADMINISTRATOR CONTROL</h1>
 <c:url var="logoutUrl" value="/logout"/>
 <div class="logout">
     <form action="${logoutUrl}" method="post">
@@ -37,7 +98,7 @@
     </form>
 </div>
 <div class="addUser">
-    Sing up new User
+    <p class="title">Sing up new User</p>
     <form action="/singup" method="post">
         <p><input type="text" id="username" name="username" placeholder="Username"></p>
         <p><input type="password" id="password" name="password" placeholder="Password"></p>
@@ -45,35 +106,26 @@
         <p><input type="text" id="surname" name="surname" placeholder="Surname"></p>
         <p><input type="text" id="role" name="role" placeholder="Role"></p>
         <p><input type="text" id="position" name="position" placeholder="Position"></p>
-        <p>
-            <button type="submit" value="signup">Sing up</button>
-        </p>
+        <p><input type="submit" value="Sing up"/></p>
     </form>
-    <p>${singUpInfo}</p>
-</div>
-
-<div class="addRole">
-    Create new Role
-    <form action="/createrole" method="post">
-        <p><input type="text" id="role" name="role" placeholder="Role"></p>
-        <p>
-            <button type="submit" value="createrole">Create Role</button>
-        </p>
-    </form>
-    <p>${createRoleInfo}</p>
+    <p class="title">${singUpInfo}</p>
 </div>
 
 <div class="addPosition">
-    Create new Position
+    <p class="title">Create new Position</p>
     <form action="/createposition" method="post">
         <p><input type="text" id="title" name="title" placeholder="Position"></p>
         <p><input type="text" id="salaryt" name="salaryt" placeholder="Salary type"></p>
         <p><input type="text" id="salary" name="salary" placeholder="Salary"></p>
-        <p>
-            <button type="submit" value="createposition">Create Position</button>
-        </p>
+        <p><input type="submit" value="createposition"/></p>
     </form>
-    <p>${createPositionInfo}</p>
+    <p class="title">${createPositionInfo}</p>
+</div>
+
+<div class="goHome">
+    <form action="/home" method="post">
+        <p><input type="submit" value="GO Home"/></p>
+    </form>
 </div>
 
 </body>

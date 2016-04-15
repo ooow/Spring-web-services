@@ -1,10 +1,10 @@
 package com.nc.model;
 
 import org.joda.time.Duration;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
-import org.joda.time.DateTime;
 
 /**
  * Created by Гога on 11.04.2016.
@@ -19,6 +19,9 @@ public class WorkTable extends Model {
     private DateTime startTime = null;
     @Column
     private DateTime endTime = null;
+
+    @Column
+    private DateTime workTime = null;
 
     public WorkTable() {
         super();
@@ -50,6 +53,10 @@ public class WorkTable extends Model {
 
     public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public void setWorkTime(DateTime workTime) {
+        this.workTime = workTime;
     }
 
     public String getWorkTime() {

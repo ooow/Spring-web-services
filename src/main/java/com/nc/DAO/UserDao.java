@@ -31,28 +31,12 @@ public class UserDao {
         return user;
     }
 
-    public User findByUserId(Long id) {
-        SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        try {
-            Criteria criteria = session.createCriteria(User.class);
-            criteria.add(Restrictions.eq("id", id));
-            List<User> res = criteria.list();
-            return res.size() != 0 ? res.get(0) : null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return user;
-    }
-
     public void registUser(User user) {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             User us1 = findByUserName(user.getLogin());
-            if (us1 == null)
+            if (us1 != null)
                 return; // такой юзер уже существует
             session.beginTransaction();
             session.save(user);

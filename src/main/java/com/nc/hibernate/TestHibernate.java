@@ -20,8 +20,8 @@ public class TestHibernate {
             session.beginTransaction();
 
             Role rl1 = new Role();
-            rl1.setTitle("admin");
-            Position ps1 = new Position("Manager", "static", new BigDecimal(45000));
+            rl1.setTitle("ROLE_ADMIN");
+            Position ps1 = new Position("manager", "static", new BigDecimal(45000));
             User us1 = new User("superUser1", "password1", "Kirill", "Mikhalkov", rl1, ps1);
             WorkTable wt1 = new WorkTable();
             wt1.setUser(us1);
@@ -33,7 +33,7 @@ public class TestHibernate {
 
             rl1 = new Role();
             rl1.setTitle("user");
-            ps1 = new Position("Cleaner", "static", new BigDecimal(21000));
+            ps1 = new Position("cleaner", "static", new BigDecimal(21000));
             us1 = new User("superUser2", "password2", "Ekaterina", "Ivanova", rl1, ps1);
 
             session.save(rl1);
@@ -41,7 +41,7 @@ public class TestHibernate {
             session.save(us1);
             session.save(wt1);
 
-            ps1 = new Position("Junior", "dinamic", new BigDecimal(170));
+            ps1 = new Position("junior", "dinamic", new BigDecimal(170));
             us1 = new User("superUser3", "password3", "Anton", "Shevchenko", rl1, ps1);
 
             session.save(ps1);
