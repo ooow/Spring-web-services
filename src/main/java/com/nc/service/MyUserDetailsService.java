@@ -27,14 +27,12 @@ public class MyUserDetailsService implements UserDetailsService {
         return buildUserForAuthentication(user, authorities);
     }
 
-    private org.springframework.security.core.userdetails.User buildUserForAuthentication(User user,
-                                                                                          List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(user.getLogin(),
-                user.getPassword(), authorities);
+    private org.springframework.security.core.userdetails.User buildUserForAuthentication(
+            User user, List<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(Role userRole) {
-
         Set<GrantedAuthority> setAuths = new HashSet<>();
         setAuths.add(new SimpleGrantedAuthority(userRole.getTitle()));
         List<GrantedAuthority> Result = new ArrayList<>(setAuths);

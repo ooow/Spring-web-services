@@ -27,7 +27,6 @@ import java.math.BigDecimal;
  */
 @Controller
 public class RequestController {
-    public String status = "stop";
 
     @RequestMapping(value = "/singup", method = RequestMethod.POST)
     public ModelAndView singup(HttpServletRequest request) {
@@ -62,13 +61,15 @@ public class RequestController {
     public ModelAndView userSingIn() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        return new ViewUserProfile().getProfileInfo(username, status);
+        User user = new UserDao().findByUserName(username);
+        return new ViewUserProfile().getProfileInfo(user);
     }
 
     @RequestMapping(value = "/home")
     public ModelAndView userSingInH() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return new ViewUserProfile().getProfileInfo(username, status);
+        User user = new UserDao().findByUserName(username);
+        return new ViewUserProfile().getProfileInfo(user);
     }
 
     @RequestMapping(value = "/workstart", method = RequestMethod.POST)
@@ -76,32 +77,35 @@ public class RequestController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         DateTime current = DateTime.now();
-        System.out.println("Время_-- " + current);
         WorkTable wt = new WorkTable();
-        wt.setUser(new UserDao().findByUserName(username));
+        User user = new UserDao().findByUserName(username);
+        System.out.println(user.getStatus());
+        user.setStatus("start");
+        new UserDao().updateUser(user);
+        System.out.println(user.getStatus());
+        wt.setUser(user);
         wt.setStartTime(current);
         new WorkTableDAO().createNewWT(wt);
-        status = "start";
-        return new ViewUserProfile().getProfileInfo(username, status);
+        return new ViewUserProfile().getProfileInfo(user);
     }
 
     @RequestMapping(value = "/workstop", method = RequestMethod.POST)
     public ModelAndView workStop() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         DateTime current = DateTime.now();
-        System.out.println("Время_-- " + current);
         User user = new UserDao().findByUserName(username);
+        user.setStatus("stop");
+        new UserDao().updateUser(user);
         WorkTable wt = new WorkTableDAO().getWTbyUser(user);
         wt.setEndTime(current);
         new WorkTableDAO().updateEndTime(wt);
-        status = "stop";
-        return new ViewUserProfile().getProfileInfo(username, status);
+        return new ViewUserProfile().getProfileInfo(user);
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ModelAndView getReport() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return new ViewUserReport().getReport(username, status);
+        return new ViewUserReport().getReport(username);
     }
 
     @RequestMapping("/403")

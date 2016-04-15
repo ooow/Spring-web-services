@@ -47,4 +47,18 @@ public class UserDao {
             session.close();
         }
     }
+
+    public void updateUser(User user) {
+        SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(user);
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }

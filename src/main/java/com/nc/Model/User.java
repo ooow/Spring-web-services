@@ -18,6 +18,8 @@ public class User extends Model {
     private String name;
     @Column
     private String surname;
+    @Column
+    private String status = "stop";
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -92,14 +94,11 @@ public class User extends Model {
         this.post = post;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
-    @Override
-    public String toString() {
-        return "login: " + login + "\n" +
-                "password: " + password + "\n" +
-                "name: " + name + "\n" +
-                "surname: " + surname + "\n" +
-                "role:\n" + role.toString() + "\n" +
-                "post:\n" + post.toString();
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

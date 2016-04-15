@@ -21,7 +21,7 @@
             font-size: 60px;
         }
 
-        . title {
+        .title {
             font-family: Calibri, sans-serif;
             text-align: center;
             color: #50a3a2;
