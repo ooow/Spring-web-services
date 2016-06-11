@@ -51,6 +51,26 @@
             left: 10%;
         }
 
+        .report {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+        }
+
+        .reportTable {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            color: white;
+            font-weight: 300;
+            background: #50a3a2;
+            background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+            background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+            position: absolute;
+            top: 90%;
+            left: 5%;
+            width: 90%;
+        }
+
 /*        .deleteRole {
             position: absolute;
             top: 65%;
@@ -121,12 +141,12 @@
     <div class="add">
         <p class="title">Sing up new User</p>
         <form action="/singup" method="post">
-            <p><input type="text" id="username" name="username" placeholder="Username"></p>
-            <p><input type="password" id="password" name="password" placeholder="Password"></p>
-            <p><input type="text" id="name" name="name" placeholder="Name"></p>
-            <p><input type="text" id="surname" name="surname" placeholder="Surname"></p>
-            <p><input type="text" id="role" name="role" placeholder="Role"></p>
-            <p><input type="text" id="position" name="position" placeholder="Position"></p>
+            <p><input type="text" id="username" name="username" placeholder="username"></p>
+            <p><input type="password" id="password" name="password" placeholder="password"></p>
+            <p><input type="text" id="name" name="name" placeholder="name"></p>
+            <p><input type="text" id="surname" name="surname" placeholder="surname"></p>
+            <p><input type="text" id="role" name="role" placeholder="role"></p>
+            <p><input type="text" id="position" name="position" placeholder="position"></p>
             <p><input type="submit" value="Sing up"/></p>
         </form>
         <p class="title">${singUpInfo}</p>
@@ -137,9 +157,9 @@
     <div class="add">
         <p class="title">Create new Position</p>
         <form action="/createposition" method="post">
-            <p><input type="text" id="title" name="title" placeholder="Position"></p>
-            <p><input type="text" id="salaryt" name="salaryt" placeholder="Salary type"></p>
-            <p><input type="text" id="salary" name="salary" placeholder="Salary"></p>
+            <p><input type="text" id="title" name="title" placeholder="position"></p>
+            <p><input type="text" id="salaryt" name="salaryt" placeholder="salary type"></p>
+            <p><input type="text" id="salary" name="salary" placeholder="salary"></p>
             <p><input type="submit" value="Create Position"/></p>
         </form>
         <p class="title">${createPositionInfo}</p>
@@ -150,10 +170,21 @@
     <div class="add">
         <p class="title">Create new Role</p>
         <form action="/createrole" method="post">
-            <p><input type="text" id="title" name="title" placeholder="Role"></p>
+            <p><input type="text" id="role" name="role" placeholder="role"></p>
             <p><input type="submit" value="Create Role"/></p>
         </form>
         <p class="title">${createRoleInfo}</p>
+    </div>
+</div>
+
+<div class="report">
+    <div class="add">
+        <p class="title">Report By User Name</p>
+        <form action="/reportUser" method="post">
+            <p><input type="text" id="username" name="username" placeholder="user name"></p>
+            <p><input type="submit" value="Report"/></p>
+        </form>
+        <p class="title">${userFoundInfo}</p>
     </div>
 </div>
 
@@ -178,6 +209,36 @@
         <p class="title">${deletePositionInfo}</p>
     </div>
 </div>--%>
+
+<div>
+    <c:if test="${worktables != null}">
+        <table class="reportTable" border="1px" style="border-color: black;">
+            <tr>
+                <pre><th>Year</th></pre>
+                <pre><th> Month</th></pre>
+                <pre><th> Day</th></pre>
+                <pre><th> Start In</th></pre>
+                <pre><th> End In</th></pre>
+                <pre><th> Work</th></pre>
+            </tr>
+            <c:forEach var="worktabel" items="${worktables}">
+                <tr>
+                    <td>${worktabel.startTime.getYear()}</td>
+                    <td>${worktabel.startTime.getMonthOfYear()}</td>
+                    <td>${worktabel.startTime.getDayOfMonth()}</td>
+                    <td> ${worktabel.startTime.getHourOfDay()} :
+                            ${worktabel.startTime.getMinuteOfHour()} </td>
+                    <td> ${worktabel.endTime.getHourOfDay()} :
+                            ${worktabel.endTime.getMinuteOfHour()} </td>
+                    <td>${worktabel.workTime.getHourOfDay()} :
+                            ${worktabel.workTime.getMinuteOfHour()} :
+                            ${worktabel.workTime.getSecondOfMinute()}
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
 
 <div class="goHome">
     <form action="/home" method="post">

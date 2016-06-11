@@ -18,7 +18,6 @@ public class WorkTable extends Model {
     private DateTime startTime = null;
     @Column
     private DateTime endTime = null;
-
     @Column
     private DateTime workTime = null;
 

@@ -1,6 +1,5 @@
 package com.nc.view.models;
 
-import com.nc.DAO.UserDao;
 import com.nc.model.User;
 import org.springframework.web.servlet.ModelAndView;
 

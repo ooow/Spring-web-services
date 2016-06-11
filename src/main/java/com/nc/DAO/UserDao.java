@@ -1,8 +1,8 @@
 package com.nc.DAO;
 
 import com.nc.exception.UsernameIsAlreadyTakenException;
-import com.nc.model.User;
 import com.nc.hibernate.HibernateConfig;
+import com.nc.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,18 +14,20 @@ import java.util.List;
  * Created by Гога on 11.04.2016.
  */
 public class UserDao {
-    private User user = null;
-
     public User findByUserName(String login) {
         SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
         Session session = sessionFactory.openSession();
+        User user;
         try {
             Criteria criteria = session.createCriteria(User.class);
             criteria.add(Restrictions.eq("login", login));
             List<User> res = criteria.list();
-            return res.size() != 0 ? res.get(0) : null;
+            if (res.size() != 0)
+                user = res.get(0);
+            else user = null;
         } catch (Exception e) {
             e.printStackTrace();
+            user = null;
         } finally {
             session.close();
         }

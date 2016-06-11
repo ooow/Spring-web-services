@@ -148,7 +148,6 @@
 
 <div class="reportTable">
     <c:if test="${worktables != null}">
-
         <table class="reportTable" border="1px" style="border-color: black;">
             <tr>
                 <pre><th>Year</th></pre>
@@ -174,7 +173,6 @@
                 </tr>
             </c:forEach>
         </table>
-
     </c:if>
 </div>
 

@@ -21,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -35,12 +33,12 @@ public class RequestController {
     public ModelAndView singup(HttpServletRequest request) {
         String requestStatus = "User Registered";
         try {
-            String[] ifBlank = {request.getParameter("username").toUpperCase(),
-                    request.getParameter("password").toUpperCase(),
-                    request.getParameter("name").toUpperCase(),
-                    request.getParameter("surname").toUpperCase(),
-                    request.getParameter("role").toUpperCase(),
-                    request.getParameter("position").toUpperCase()};
+            String[] ifBlank = {request.getParameter("username"),
+                    request.getParameter("password"),
+                    request.getParameter("name"),
+                    request.getParameter("surname"),
+                    request.getParameter("role").toLowerCase(),
+                    request.getParameter("position").toLowerCase()};
             for (int i = 0; i < ifBlank.length; i++) {
                 if (ifBlank[i] == null) {
                     requestStatus = "Fill blank fields";
@@ -48,8 +46,8 @@ public class RequestController {
                 }
             }
             Role role = new Role();
-            if ("ADMIN".equals(ifBlank[4]))
-                role = new RoleDao().getRoleByTitle("ROLE_" + ifBlank[4]);
+            if ("ADMIN".equals(ifBlank[4].toUpperCase()))
+                role = new RoleDao().getRoleByTitle("ROLE_" + ifBlank[4].toUpperCase());
             else
                 role = new RoleDao().getRoleByTitle(ifBlank[4].toLowerCase());
             Position position = new PositionDao().getPositionByTitle(ifBlank[5].toLowerCase());
@@ -68,7 +66,7 @@ public class RequestController {
         if (newRole == null)
             requestStatus = "Fill blank fields";
         else {
-            Role role = new Role(newRole);
+            Role role = new Role(newRole.toLowerCase());
             try {
                 new RoleDao().createNewRole(role);
             } catch (AlreadyCreatedException e) {
@@ -81,13 +79,14 @@ public class RequestController {
     @RequestMapping(value = "/createposition", method = RequestMethod.POST)
     public ModelAndView createNewPosition(HttpServletRequest request) {
         String requestStatus = "New Position Created";
-        String newPosition = request.getParameter("position");
-        if (newPosition == null)
+        String title = request.getParameter("title").toLowerCase();
+        String salaryt = request.getParameter("salaryt").toLowerCase();
+        String salary = request.getParameter("salary");
+        if (title == null || salaryt == null || salary == null)
             requestStatus = "Fill blank fields";
         else {
             try {
-                Position position = new Position(request.getParameter("title"), request.getParameter("salaryt"),
-                        new BigDecimal(request.getParameter("salary")));
+                Position position = new Position(title, salaryt, new BigDecimal(salary));
                 new PositionDao().createNewPosition(position);
             } catch (AlreadyCreatedException | SalaryTypeException e) {
                 requestStatus = e.getMessage();
@@ -145,6 +144,20 @@ public class RequestController {
     public ModelAndView getReport() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return new ViewUserReport().getReport(username);
+    }
+
+    @RequestMapping(value = "/reportUser", method = RequestMethod.POST)
+    public ModelAndView getReportByUserName(HttpServletRequest request) {
+        String requestStatus = "";
+        String username = request.getParameter("username");
+        ModelAndView mv;
+        try {
+            mv = new ViewUserReport().getReportByUserName(username);
+        } catch (UserNotFoundException e) {
+            requestStatus = e.getMessage();
+            mv = new ModelAndView("adminhome", "userFoundInfo", requestStatus);
+        }
+        return mv;
     }
 
     @RequestMapping("/403")
