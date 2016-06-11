@@ -160,6 +160,11 @@ public class RequestController {
         return mv;
     }
 
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public ModelAndView getAllUsers() {
+        return new ViewUserProfile().getUsers();
+    }
+
     @RequestMapping("/403")
     public String accessDenied() {
         return "errors/403";

@@ -4,6 +4,7 @@ import com.nc.exception.UsernameIsAlreadyTakenException;
 import com.nc.hibernate.HibernateConfig;
 import com.nc.model.User;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -45,6 +46,7 @@ public class UserDao {
             session.save(user);
             session.beginTransaction().commit();
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -59,9 +61,37 @@ public class UserDao {
             session.update(user);
             session.beginTransaction().commit();
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
+    }
+
+    public String[][] getUsers() {
+        SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String[][] logins = null;
+        List<String> login;
+        List<String> names;
+        try {
+            session.beginTransaction();
+            SQLQuery query = session.createSQLQuery("SELECT login from users");
+            login = query.list();
+            query = session.createSQLQuery("SELECT name from users");
+            names = query.list();
+            logins = new String[login.size()][2];
+            for (int i = 0; i < login.size(); i++) {
+                logins[i][0] = login.get(i);
+                logins[i][1] = names.get(i);
+            }
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return logins;
     }
 }

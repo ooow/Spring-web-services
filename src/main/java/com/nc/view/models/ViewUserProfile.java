@@ -1,5 +1,6 @@
 package com.nc.view.models;
 
+import com.nc.DAO.UserDao;
 import com.nc.model.User;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,5 +19,9 @@ public class ViewUserProfile {
         mv.addObject("salary", user.getPost().getSalary());
         mv.addObject("status", user.getStatus());
         return mv;
+    }
+
+    public ModelAndView getUsers() {
+        return new ModelAndView("adminhome", "users", new UserDao().getUsers());
     }
 }

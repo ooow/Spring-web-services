@@ -45,6 +45,12 @@
             right: 10%;
         }
 
+        .users {
+            position: absolute;
+            top: 73%;
+            right: 10%;
+        }
+
         .addRole {
             position: absolute;
             top: 20%;
@@ -53,7 +59,7 @@
 
         .report {
             position: absolute;
-            top: 50%;
+            top: 61%;
             left: 10%;
         }
 
@@ -71,17 +77,31 @@
             width: 90%;
         }
 
-/*        .deleteRole {
+        .usersTable {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            color: white;
+            font-weight: 300;
+            background: #50a3a2;
+            background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+            background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
             position: absolute;
-            top: 65%;
-            left: 10%;
+            top: 90%;
+            left: 35%;
+            width: 30%;
         }
 
-        .deletePosition {
-            position: absolute;
-            top: 65%;
-            right: 10%;
-        }*/
+        /*        .deleteRole {
+                    position: absolute;
+                    top: 65%;
+                    left: 10%;
+                }
+
+                .deletePosition {
+                    position: absolute;
+                    top: 65%;
+                    right: 10%;
+                }*/
 
         .add {
             font-family: 'Source Sans Pro', sans-serif;
@@ -188,6 +208,14 @@
     </div>
 </div>
 
+<div class="users">
+    <div class="add">
+        <form action="/users" method="post">
+            <p><input type="submit" value="Get Users"/></p>
+        </form>
+    </div>
+</div>
+
 <%--<div class="deleteRole">
     <div class="add">
         <p class="title">Delete Role</p>
@@ -234,6 +262,23 @@
                             ${worktabel.workTime.getMinuteOfHour()} :
                             ${worktabel.workTime.getSecondOfMinute()}
                     </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
+
+<div>
+    <c:if test="${users != null}">
+        <table class="usersTable" border="1px" style="border-color: black;">
+            <tr>
+                <pre><th>Login</th></pre>
+                <pre><th>Name</th></pre>
+            </tr>
+            <c:forEach var="user" items="${users}">
+                <tr>
+                    <td>${user[0]}</td>
+                    <td>${user[1]}</td>
                 </tr>
             </c:forEach>
         </table>
