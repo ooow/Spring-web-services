@@ -17,6 +17,7 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
+<<<<<<< HEAD
       <profile default="false" name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -27,6 +28,12 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="workOut" target="1.8" />
+=======
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Rest_Serve_by_Goga" target="1.7" />
+      <module name="web" target="1.7" />
+>>>>>>> 6fc648ada53b5486ebaf0aaf869cb6874a8ba896
     </bytecodeTargetLevel>
   </component>
 </project>
