@@ -2,7 +2,7 @@
 
 ## Как запустить:
 #### Необходимые инструменты:
-* [JDK 8+] (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [JDK 8+](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [Apache Maven 3+](<https://maven.apache.org/download.cgi>)
 
 #### 1. Скачать репозиторий и перейти в папку с проектом
